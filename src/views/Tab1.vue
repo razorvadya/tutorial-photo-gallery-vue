@@ -1,28 +1,44 @@
 <template>
   <ion-page>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Tab 1</ion-title>
-      </ion-toolbar>
-    </ion-header>
     <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Tab 1</ion-title>
-        </ion-toolbar>
-      </ion-header>
-    
-      <ExploreContainer name="Tab 1 page" />
+      <div class="content">
+        <ion-img
+          class="illustration"
+          :src="require('@/assets/Illustration.svg')"
+        />
+        <ion-text color="dark">
+          <h1>Connect easily with your family and friends over countries</h1>
+        </ion-text>
+      </div>
     </ion-content>
   </ion-page>
 </template>
 
 <script lang="ts">
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
-import ExploreContainer from '@/components/ExploreContainer.vue';
-
-export default  {
-  name: 'Tab1',
-  components: { ExploreContainer, IonHeader, IonToolbar, IonTitle, IonContent, IonPage }
-}
+import { IonPage, IonContent, IonImg } from "@ionic/vue";
+export default {
+  name: "Tab1",
+  components: {
+    IonContent,
+    IonPage,
+    IonImg,
+  },
+};
 </script>
+
+<style scoped>
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+h1 {
+  padding: 0 48px;
+  text-align: center;
+}
+.illustration {
+  max-width: 262px;
+  margin: 0 auto;
+}
+</style>
