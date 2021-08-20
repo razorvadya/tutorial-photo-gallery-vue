@@ -25,6 +25,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'chats/:id',
+        name: 'chatId',
         component: () => import('@/views/ChatId.vue'),
       },
     ],

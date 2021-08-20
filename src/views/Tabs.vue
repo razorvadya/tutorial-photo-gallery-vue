@@ -2,7 +2,7 @@
   <ion-page>
     <ion-content>
       <ion-tabs>
-        <ion-tab-bar slot="bottom">
+        <ion-tab-bar v-show="isShowBar" slot="bottom">
           <ion-tab-button tab="home" href="/home">
             <ion-icon :icon="homeOutline" />
           </ion-tab-button>
@@ -32,6 +32,8 @@ import {
   homeOutline,
   chatbubbleOutline,
 } from "ionicons/icons";
+import { computed, ref, watch, watchEffect } from "vue";
+import { useRoute } from "vue-router";
 
 export default {
   name: "Tabs",
@@ -44,12 +46,16 @@ export default {
     IonPage,
   },
   setup() {
+    const route = useRoute();
+    const isShowBar = computed(() => route.name !== "chatId");
+
     return {
       images,
       square,
       triangle,
       homeOutline,
       chatbubbleOutline,
+      isShowBar,
     };
   },
 };
