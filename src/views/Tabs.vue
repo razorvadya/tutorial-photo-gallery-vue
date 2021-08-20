@@ -3,11 +3,11 @@
     <ion-content>
       <ion-tabs>
         <ion-tab-bar slot="bottom">
-          <ion-tab-button tab="tab1" href="/tabs/tab1">
+          <ion-tab-button tab="home" href="/home">
             <ion-icon :icon="homeOutline" />
           </ion-tab-button>
 
-          <ion-tab-button tab="tab2" href="/tabs/tab2">
+          <ion-tab-button tab="chats" href="/chats">
             <ion-icon :icon="chatbubbleOutline" />
           </ion-tab-button>
         </ion-tab-bar>

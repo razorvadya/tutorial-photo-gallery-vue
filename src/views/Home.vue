@@ -15,13 +15,13 @@
 </template>
 
 <script lang="ts">
-import { IonPage, IonContent, IonImg } from "@ionic/vue";
+import { IonPage, IonContent, IonImg, IonText } from "@ionic/vue";
 export default {
-  name: "Tab1",
   components: {
-    IonContent,
     IonPage,
+    IonContent,
     IonImg,
+    IonText,
   },
 };
 </script>

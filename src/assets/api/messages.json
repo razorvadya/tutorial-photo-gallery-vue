@@ -1,0 +1,29 @@
+[
+  {
+    "id": "1",
+    "message1": "Message text",
+    "message2": "Text Message",
+    "chatId": "1",
+    "userId": "1",
+    "createdAt": "1",
+    "updatedAt": "1"
+  },
+  {
+    "id": "2",
+    "message1": "Message text 2",
+    "message2": "2 Text Message",
+    "chatId": "2",
+    "userId": "2",
+    "createdAt": "2",
+    "updatedAt": "2"
+  },
+  {
+    "id": "3",
+    "message1": "Message text 3",
+    "message2": "3 Text Message",
+    "chatId": "2",
+    "userId": "2",
+    "createdAt": "2",
+    "updatedAt": "2"
+  }
+]
