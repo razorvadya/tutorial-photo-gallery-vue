@@ -28,6 +28,10 @@ const routes: Array<RouteRecordRaw> = [
         name: 'chatId',
         component: () => import('@/views/ChatId.vue'),
       },
+      {
+        path: 'profile',
+        component: () => import('@/views/Profile.vue'),
+      },
     ],
   },
 ]

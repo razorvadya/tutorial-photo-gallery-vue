@@ -7,6 +7,8 @@ function getChats() {
   return Chats
 }
 
+export type Message = typeof Messages[0]
+
 function getMessages() {
   return Messages
 }
@@ -20,6 +22,20 @@ export function useApi() {
     messages: getMessages(),
     users: getUsers(),
   })
+  const findUserById = (userId: string) => {
+    return data.users.find((item) => item.id === userId)
+  }
 
-  return { data, getChats, getMessages, getUsers }
+  const getMessagesByChatId = (chatId: string) => {
+    return data.messages.filter((item) => item.chatId === chatId)
+  }
+
+  return {
+    data,
+    findUserById,
+    getMessagesByChatId,
+    getChats,
+    getMessages,
+    getUsers,
+  }
 }

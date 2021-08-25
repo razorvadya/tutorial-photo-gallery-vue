@@ -4,11 +4,14 @@
       <ion-tabs>
         <ion-tab-bar v-show="isShowBar" slot="bottom">
           <ion-tab-button tab="home" href="/home">
-            <ion-icon :icon="homeOutline" />
+            <ion-icon class="icon" :icon="homeOutline" />
           </ion-tab-button>
 
           <ion-tab-button tab="chats" href="/chats">
-            <ion-icon :icon="chatbubbleOutline" />
+            <ion-icon class="icon" :icon="chatbubbleOutline" />
+          </ion-tab-button>
+          <ion-tab-button tab="profile" href="/profile">
+            <ion-icon class="icon" :icon="personOutline" />
           </ion-tab-button>
         </ion-tab-bar>
       </ion-tabs>
@@ -31,8 +34,9 @@ import {
   triangle,
   homeOutline,
   chatbubbleOutline,
+  personOutline,
 } from "ionicons/icons";
-import { computed, ref, watch, watchEffect } from "vue";
+import { computed } from "vue";
 import { useRoute } from "vue-router";
 
 export default {
@@ -56,7 +60,14 @@ export default {
       homeOutline,
       chatbubbleOutline,
       isShowBar,
+      personOutline,
     };
   },
 };
 </script>
+
+<style scoped>
+.icon {
+  width: 24px;
+}
+</style>
