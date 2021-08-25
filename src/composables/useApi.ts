@@ -1,41 +1,18 @@
-import Chats from '@/assets/api/chats.json'
-import Messages from '@/assets/api/messages.json'
-import Users from '@/assets/api/users.json'
-import { reactive } from 'vue'
+import chats from '@/assets/api/chats.json'
+import messages from '@/assets/api/messages.json'
+import users from '@/assets/api/users.json'
 
-function getChats() {
-  return Chats
+export function getChats() {
+  return chats
 }
 
-export type Message = typeof Messages[0]
+export type Message = typeof messages[0]
 
-function getMessages() {
-  return Messages
+export type User = typeof users[0]
+
+export function getMessages() {
+  return messages
 }
-function getUsers() {
-  return Users
-}
-
-export function useApi() {
-  const data = reactive({
-    chats: getChats(),
-    messages: getMessages(),
-    users: getUsers(),
-  })
-  const findUserById = (userId: string) => {
-    return data.users.find((item) => item.id === userId)
-  }
-
-  const getMessagesByChatId = (chatId: string) => {
-    return data.messages.filter((item) => item.chatId === chatId)
-  }
-
-  return {
-    data,
-    findUserById,
-    getMessagesByChatId,
-    getChats,
-    getMessages,
-    getUsers,
-  }
+export function getUsers() {
+  return users
 }

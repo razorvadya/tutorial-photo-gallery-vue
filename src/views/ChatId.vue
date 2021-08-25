@@ -38,7 +38,11 @@
         <ion-input
           class="input"
           placeholder="Type your message ..."
+          v-model="message"
         ></ion-input>
+        <ion-button @click="addMessage()">
+          <ion-icon class="icon" :icon="sendSharp"></ion-icon>
+        </ion-button>
       </div>
     </ion-footer>
   </ion-page>
@@ -57,6 +61,7 @@ import {
   IonFooter,
   IonInput,
   IonIcon,
+  IonButton,
 } from "@ionic/vue";
 import { useRoute } from "vue-router";
 import {
@@ -64,10 +69,11 @@ import {
   attachOutline,
   micOutline,
   playSharp,
+  sendSharp,
 } from "ionicons/icons";
 import { computed, defineComponent, ref } from "vue";
-import { useApi } from "@/composables/useApi";
 import ChatMessage from "@/components/ChatMessage.vue";
+import { useMainStore } from "@/stores/main";
 
 export default defineComponent({
   components: {
@@ -83,15 +89,21 @@ export default defineComponent({
     IonInput,
     IonIcon,
     ChatMessage,
+    IonButton,
   },
   setup() {
     const route = useRoute();
-    const { data, getMessagesByChatId, findUserById } = useApi();
+    const main = useMainStore();
+
+    const message = ref("");
 
     const chatId = computed(() => `${route.params.id}`);
+    const messages = computed(() => main.getMessagesByChatId(chatId.value));
+    const chatData = computed(() => main.getChatById(chatId.value));
 
-    const messages = computed(() => getMessagesByChatId(chatId.value));
-    const chatData = data.chats.find((item) => item.id === chatId.value);
+    const addMessage = () => {
+      main.addMessage(message.value, chatId.value);
+    };
 
     return {
       route,
@@ -102,7 +114,9 @@ export default defineComponent({
       attachOutline,
       micOutline,
       playSharp,
-      findUserById,
+      sendSharp,
+      message,
+      addMessage,
     };
   },
 });
@@ -183,5 +197,18 @@ export default defineComponent({
   display: flex;
   padding: 11px 34px 10px 30px;
   align-items: center;
+}
+
+@media (prefers-color-scheme: dark) {
+  .name {
+    color: #ffffff;
+  }
+  .footer {
+    background: #272727;
+  }
+  .icon {
+    background: #0c5eda;
+    color: #fff;
+  }
 }
 </style>

@@ -25,7 +25,7 @@
             <div></div>
           </div>
         </div>
-        <span>12:00</span>
+        <span>{{ message.createdAt }}</span>
       </div>
     </div>
   </div>
@@ -35,9 +35,9 @@
 import { IonAvatar, IonIcon } from "@ionic/vue";
 import { playSharp } from "ionicons/icons";
 import { PropType, computed, defineComponent } from "vue";
-import { Message, useApi } from "@/composables/useApi";
+import { Message } from "@/composables/useApi";
 
-const accountId = "1";
+import { useMainStore } from "@/stores/main";
 
 export default defineComponent({
   components: { IonAvatar, IonIcon },
@@ -48,13 +48,13 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { findUserById } = useApi();
-    const account = findUserById(accountId);
+    const main = useMainStore();
+    const account = computed(() => main.accountProfile);
 
     const message = computed(() => props.message);
-    const user = computed(() => findUserById(message.value.userId));
+    const user = computed(() => main.getUserById(message.value.userId));
 
-    const isMyMessage = computed(() => user.value?.id === account?.id);
+    const isMyMessage = computed(() => user.value?.id === account.value?.id);
 
     return {
       account,
@@ -225,5 +225,21 @@ export default defineComponent({
 }
 .audio-message div:nth-child(10) {
   height: 21px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .content {
+    background: #272727;
+  }
+  .content:before {
+    border-bottom: 8px solid #272727;
+  }
+  .content2 {
+    background: #12223a;
+    color: #fff;
+  }
+  .content2:before {
+    border-bottom: 8px solid #12223a;
+  }
 }
 </style>

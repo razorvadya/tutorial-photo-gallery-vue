@@ -16,9 +16,9 @@
 </template>
 
 <script lang="ts">
-import { useApi } from "@/composables/useApi";
 import { IonContent, IonPage, IonHeader, IonListHeader } from "@ionic/vue";
-import { defineComponent } from "vue";
+import { computed, defineComponent } from "vue";
+import { useMainStore } from "@/stores/main";
 
 export default defineComponent({
   components: {
@@ -28,9 +28,8 @@ export default defineComponent({
     IonListHeader,
   },
   setup() {
-    const { data } = useApi();
-    const accountId = "1";
-    const account = data.users.find((item) => item.id === accountId);
+    const main = useMainStore();
+    const account = computed(() => main.accountProfile);
     return {
       account,
     };

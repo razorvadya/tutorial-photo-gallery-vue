@@ -2,6 +2,7 @@
   <ion-page>
     <ion-content>
       <ion-tabs>
+        <ion-router-outlet />
         <ion-tab-bar v-show="isShowBar" slot="bottom">
           <ion-tab-button tab="home" href="/home">
             <ion-icon class="icon" :icon="homeOutline" />
@@ -27,6 +28,7 @@ import {
   IonContent,
   IonIcon,
   IonPage,
+  IonRouterOutlet,
 } from "@ionic/vue";
 import {
   images,
@@ -48,6 +50,7 @@ export default {
     IonTabButton,
     IonIcon,
     IonPage,
+    IonRouterOutlet,
   },
   setup() {
     const route = useRoute();

@@ -27,14 +27,12 @@
           </ion-item>
         </div>
       </ion-list>
-
-      <ion-button @click="addChat">add</ion-button>
     </ion-content>
   </ion-page>
 </template>
 
 <script lang="ts">
-import { useApi } from "@/composables/useApi";
+import { useMainStore } from "@/stores/main";
 import {
   IonPage,
   IonContent,
@@ -42,17 +40,15 @@ import {
   IonListHeader,
   IonItem,
   IonAvatar,
-  IonButton,
   IonLabel,
 } from "@ionic/vue";
-import { defineComponent, ref } from "vue";
+import { computed, defineComponent } from "vue";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
   components: {
     IonContent,
     IonPage,
-    IonButton,
     IonLabel,
     IonList,
     IonListHeader,
@@ -60,18 +56,14 @@ export default defineComponent({
     IonAvatar,
   },
   setup() {
-    const { data } = useApi();
     const router = useRouter();
-    const chats = ref(data.chats);
 
-    const addChat = () => {
-      chats.value.push(data.chats[0]);
-    };
+    const main = useMainStore();
+    const chats = computed(() => main.chats);
     const goTo = (url: string) => {
       router.push({ path: url });
     };
     return {
-      addChat,
       chats,
       goTo,
     };
