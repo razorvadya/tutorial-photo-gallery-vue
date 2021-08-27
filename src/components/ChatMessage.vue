@@ -101,6 +101,7 @@ export default defineComponent({
 .content span {
   color: #5b687b;
   font-size: 12px;
+  text-align: right;
 }
 
 .content2 {
@@ -123,10 +124,13 @@ export default defineComponent({
   font-size: 12px;
 }
 
+.content .block-text {
+  flex-direction: column;
+}
+
 .block-text {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
 }
 
 .text {
@@ -171,6 +175,7 @@ export default defineComponent({
   height: 37px;
   color: #fff;
   padding: 8px;
+  margin: 10px 0 5px;
 }
 
 .audio span {

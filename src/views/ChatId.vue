@@ -40,9 +40,11 @@
           placeholder="Type your message ..."
           v-model="message"
         ></ion-input>
-        <ion-button @click="addMessage()">
-          <ion-icon class="icon" :icon="sendSharp"></ion-icon>
-        </ion-button>
+        <ion-icon
+          @click="addMessage()"
+          class="icon send"
+          :icon="sendSharp"
+        ></ion-icon>
       </div>
     </ion-footer>
   </ion-page>
@@ -61,7 +63,6 @@ import {
   IonFooter,
   IonInput,
   IonIcon,
-  IonButton,
 } from "@ionic/vue";
 import { useRoute } from "vue-router";
 import {
@@ -89,7 +90,6 @@ export default defineComponent({
     IonInput,
     IonIcon,
     ChatMessage,
-    IonButton,
   },
   setup() {
     const route = useRoute();
@@ -185,6 +185,10 @@ export default defineComponent({
   margin-right: 10px;
 }
 
+.footer-cont .send {
+  margin-left: 10px;
+}
+
 .footer {
   background: #ffffff;
   border-radius: 15px 15px 0px 0px;
@@ -195,7 +199,7 @@ export default defineComponent({
 
 .footer-cont {
   display: flex;
-  padding: 11px 34px 10px 30px;
+  padding: 11px 30px 10px 30px;
   align-items: center;
 }
 
