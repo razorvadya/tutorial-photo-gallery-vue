@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1",
+    "title": "Minsk",
+    "text": "bopbopb",
+    "img": "https://source.unsplash.com/EgqoykoW10o/300x300",
+    "time": "11:11",
+    "messages": "2"
+  },
+  {
+    "id": "2",
+    "title": "Moscow",
+    "text": "bopbopb",
+    "img": "https://source.unsplash.com/jaH3QF46gAY/300x300",
+    "time": "11:11",
+    "messages": "2"
+  },
+  {
+    "id": "3",
+    "title": "Kiev",
+    "text": "bopbopb",
+    "img": "https://source.unsplash.com/-hZvVWVhk3g/300x300",
+    "time": "11:11",
+    "messages": "3"
+  }
+]

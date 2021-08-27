@@ -15,13 +15,13 @@
 </template>
 
 <script lang="ts">
-import { IonPage, IonContent, IonImg } from "@ionic/vue";
+import { IonPage, IonContent, IonImg, IonText } from "@ionic/vue";
 export default {
-  name: "Tab1",
   components: {
-    IonContent,
     IonPage,
+    IonContent,
     IonImg,
+    IonText,
   },
 };
 </script>
@@ -31,9 +31,10 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  margin-top: 142px;
 }
 h1 {
+  margin: 42px 0 0;
   padding: 0 48px;
   text-align: center;
 }
