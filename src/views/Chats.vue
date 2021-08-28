@@ -17,11 +17,12 @@
             <ion-label class="label">
               <div>
                 <h2>{{ chat.title }}</h2>
-                <p>{{ chat.text }}</p>
+                <p v-if="chat.lastMessage">{{ chat.lastMessage.message }}</p>
+                <p v-else>no messages</p>
               </div>
-              <div class="new-time">
-                <span>11:20</span>
-                <div class="new-message">2</div>
+              <div class="new-time" v-if="chat.lastMessage">
+                <span>{{ chat.lastMessage.createdAt }}</span>
+                <div class="new-message">{{ chat.messagesCount }}</div>
               </div>
             </ion-label>
           </ion-item>
@@ -59,10 +60,19 @@ export default defineComponent({
     const router = useRouter();
 
     const main = useMainStore();
-    const chats = computed(() => main.chats);
+
+    const chats = computed(() =>
+      main.chats.map((chat) => ({
+        ...chat,
+        lastMessage: main.getLastMessageByChatId(chat.id),
+        messagesCount: main.getMessagesByChatId(chat.id).length,
+      }))
+    );
+
     const goTo = (url: string) => {
       router.push({ path: url });
     };
+
     return {
       chats,
       goTo,

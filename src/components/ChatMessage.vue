@@ -6,7 +6,7 @@
     <div :class="isMyMessage ? 'content2' : 'content'">
       <img v-if="message.image" :src="message.image" />
       <div class="block-text">
-        <div class="text">
+        <div v-if="message.message" class="text">
           {{ message.message }}
         </div>
         <div v-if="message.audio" class="audio">
@@ -25,7 +25,7 @@
             <div></div>
           </div>
         </div>
-        <span>{{ message.createdAt }}</span>
+        <div class="time">{{ message.createdAt }}</div>
       </div>
     </div>
   </div>
@@ -98,7 +98,7 @@ export default defineComponent({
   margin-bottom: 10px;
 }
 
-.content span {
+.time {
   color: #5b687b;
   font-size: 12px;
   text-align: right;
@@ -124,13 +124,10 @@ export default defineComponent({
   font-size: 12px;
 }
 
-.content .block-text {
-  flex-direction: column;
-}
-
 .block-text {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .text {
@@ -175,7 +172,8 @@ export default defineComponent({
   height: 37px;
   color: #fff;
   padding: 8px;
-  margin: 10px 0 5px;
+  margin: 0 10px 0 0;
+  width: 100%;
 }
 
 .audio span {

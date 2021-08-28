@@ -18,33 +18,43 @@
             </ion-avatar>
             <div>
               <div class="name">{{ chatData.title }}</div>
-              <div class="online">Last message at 13:02</div>
+              <div v-if="lastMessage" class="online">
+                Last message at {{ lastMessage.createdAt }}
+              </div>
             </div>
           </div>
         </ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content :fullscreen="true">
-      <chat-message
-        v-for="message in messages"
-        :key="message.id"
-        :message="message"
-      />
+    <ion-content
+      class="content"
+      :scroll-events="true"
+      :fullscreen="true"
+      ref="content"
+    >
+      <div v-if="messages.length">
+        <chat-message
+          v-for="message in messages"
+          :key="message.id"
+          :message="message"
+        />
+      </div>
+      <div class="nomessage" v-else>No messages</div>
     </ion-content>
     <ion-footer class="footer">
       <div class="footer-cont">
-        <ion-icon class="icon" :icon="attachOutline"></ion-icon>
-        <ion-icon class="icon" :icon="micOutline"></ion-icon>
+        <div style="display: none">
+          <ion-icon class="icon" :icon="attachOutline"></ion-icon>
+          <ion-icon class="icon" :icon="micOutline"></ion-icon>
+        </div>
         <ion-input
           class="input"
           placeholder="Type your message ..."
           v-model="message"
         ></ion-input>
-        <ion-icon
-          @click="addMessage()"
-          class="icon send"
-          :icon="sendSharp"
-        ></ion-icon>
+        <ion-button class="buttonsend" @click="addMessage()">
+          <ion-icon class="icon send" :icon="sendSharp"></ion-icon>
+        </ion-button>
       </div>
     </ion-footer>
   </ion-page>
@@ -63,6 +73,8 @@ import {
   IonFooter,
   IonInput,
   IonIcon,
+  onIonViewWillEnter,
+  IonButton,
 } from "@ionic/vue";
 import { useRoute } from "vue-router";
 import {
@@ -72,7 +84,7 @@ import {
   playSharp,
   sendSharp,
 } from "ionicons/icons";
-import { computed, defineComponent, ref } from "vue";
+import { computed, defineComponent, ref, onMounted } from "vue";
 import ChatMessage from "@/components/ChatMessage.vue";
 import { useMainStore } from "@/stores/main";
 
@@ -90,20 +102,44 @@ export default defineComponent({
     IonInput,
     IonIcon,
     ChatMessage,
+    IonButton,
   },
   setup() {
     const route = useRoute();
     const main = useMainStore();
 
     const message = ref("");
+    const content = ref();
 
     const chatId = computed(() => `${route.params.id}`);
     const messages = computed(() => main.getMessagesByChatId(chatId.value));
     const chatData = computed(() => main.getChatById(chatId.value));
 
-    const addMessage = () => {
-      main.addMessage(message.value, chatId.value);
+    const scrollBottom = () => {
+      content.value?.$el?.scrollToBottom();
     };
+
+    const addMessage = () => {
+      if (!message.value.length) {
+        return;
+      }
+      main.addMessage(message.value, chatId.value);
+      scrollBottom();
+    };
+
+    onIonViewWillEnter(() => {
+      scrollBottom();
+    });
+
+    onMounted(() => {
+      setTimeout(() => {
+        scrollBottom();
+      }, 1000);
+    });
+
+    const lastMessage = computed(() =>
+      main.getLastMessageByChatId(chatId.value)
+    );
 
     return {
       route,
@@ -117,6 +153,8 @@ export default defineComponent({
       sendSharp,
       message,
       addMessage,
+      content,
+      lastMessage,
     };
   },
 });
@@ -163,7 +201,7 @@ export default defineComponent({
 
 .input {
   border-bottom: 1px solid rgb(182 194 210 / 50%);
-  max-width: 220px;
+  max-width: 100%;
   --padding-bottom: 10px;
   --padding-top: 0;
   --padding-end: 0;
@@ -187,6 +225,7 @@ export default defineComponent({
 
 .footer-cont .send {
   margin-left: 10px;
+  background: none;
 }
 
 .footer {
@@ -214,5 +253,18 @@ export default defineComponent({
     background: #0c5eda;
     color: #fff;
   }
+}
+
+.nomessage {
+  text-align: center;
+  margin: 50px 0 0;
+  font-size: 14px;
+}
+
+.buttonsend {
+  --background: none;
+  --padding-start: 0;
+  --padding-end: 0;
+  --background-activated: none;
 }
 </style>

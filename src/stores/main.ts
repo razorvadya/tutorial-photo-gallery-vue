@@ -26,6 +26,13 @@ export const useMainStore = defineStore('main', {
     getUserById() {
       return (userId: string) => this.users.find((item) => item.id === userId)
     },
+    getLastMessageByChatId() {
+      return (chatId: string) => {
+        const messages = this.getMessagesByChatId(chatId)
+
+        return messages[messages.length - 1]
+      }
+    },
   },
   actions: {
     addMessage(message: string, chatId: string) {
